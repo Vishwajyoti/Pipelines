@@ -1,3 +1,5 @@
+#Setting Gcloud credentials
+gcloud auth activate-service-account --key-file=/home/vishwajyoti_pandey/component/Deployment/cloud-key/cohesive-gadget-166410-94640e49cd4c.json
 #Name of the Bucket where model needs to be deployed
 B_NAME=$1
 #PROJECT ID OF THE PROJECT UNDER WHICH MODEL IS DEPLOYED
@@ -12,7 +14,7 @@ gsutil mb -l ${REGION} gs://${BUCKET_NAME}
 #MODEL PATH WHERE .pkl FILE IS STORED AND MODEL_NAME FOR ML-ENGINE
 MODEL_PATH=$4
 #COPYING THE .pkl FILE IN NEW BUCKET
-gsutil cp  ${MODEL_PATH}model.pkl gs://${BUCKET_NAME}/
+gsutil cp  ${MODEL_PATH}models/model.pkl gs://${BUCKET_NAME}/
 #GRANTING READ ACCESS TO MODEL FILE
 gsutil acl ch -u AllUsers:R gs://${BUCKET_NAME}/model.pkl
 MODEL_DIR=gs://${BUCKET_NAME}/

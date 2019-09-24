@@ -1,0 +1,2 @@
+1-Create a Service account in google and put the json in this folder.
+2- The service account should have Model creation access on GCP and bucket creation access on GCP.

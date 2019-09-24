@@ -12,6 +12,7 @@ import logging
 import argparse
 import gcsfs
 import json
+import ast
 import pickle
 
 def grid_search(df,target,parameter):
@@ -42,7 +43,7 @@ if __name__ == '__main__':
     
     args = parser.parse_args()
     train=pd.read_csv(args.path+'outputs/train.csv')
-    param=json.loads(args.h_param)
+    param=ast.literal_eval(args.h_param)
     if args.search_type==1:
         model=grid_search(train,args.target,param)
     else:
@@ -50,5 +51,5 @@ if __name__ == '__main__':
     X=train.drop(args.target,axis=1)
     Y=train[[args.target]]
     model.fit(X,Y)
-    fs = gcsfs.GCSFileSystem(token='cloud')
+    fs = gcsfs.GCSFileSystem()
     pickle.dump(model,fs.open((args.path+'models/model.pkl'),'wb'))
